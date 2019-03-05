@@ -44,6 +44,6 @@ BEGIN
 
 	OFL	 	<= COUT_TEMP XOR C(6);
 	S 		<= S_TEMP;
-	COUT		<= COUT_TEMP;	
+	COUT	<= COUT_TEMP;	
 
 END BEHAV;

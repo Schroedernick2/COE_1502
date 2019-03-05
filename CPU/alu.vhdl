@@ -89,9 +89,9 @@ BEGIN
 
 	U_1: ARITHMETIC_UNIT
 		PORT MAP(
-			ALUOP		=> ALUOP(1 DOWNTO 0),
-			A			=> A,
-			B			=> B,
+			ALUOP			=> ALUOP(1 DOWNTO 0),
+			A				=> A,
+			B				=> B,
 			COUT			=> COUT,
 			OVERFLOW		=> OVERFLOW,
 			ZERO			=> ZERO,
@@ -100,38 +100,38 @@ BEGIN
 
 	U_2: COMPARISON_UNIT
 		PORT MAP(
-			ALUOP		=> ALUOP(1 DOWNTO 0),
+			ALUOP			=> ALUOP(1 DOWNTO 0),
 			COUT			=> COUT,
-			A_SIGN		=> A_SIGN,
-			B_SIGN		=> B_SIGN,
-			R_SIGN		=> R_SIGN,
+			A_SIGN			=> A_SIGN,
+			B_SIGN			=> B_SIGN,
+			R_SIGN			=> R_SIGN,
 			COMPARISON_R	=> COMPARISON_R
 		);
 
 	U_0: LOGICAL_UNIT
 		PORT MAP(
-			A		=> A,
-			B		=> B,
-			ALUOP	=> ALUOP(1 DOWNTO 0),
-			LOGICAL_R => LOGICAL_R
+			A			=> A,
+			B			=> B,
+			ALUOP		=> ALUOP(1 DOWNTO 0),
+			LOGICAL_R 	=> LOGICAL_R
 		);
 
 	U_3: SHIFTER
 		PORT MAP(
-			A		=> A,
-			SHAMT	=> SHAMT,
-			ALUOP	=> ALUOP(1 DOWNTO 0),
-			SHIFTER_R => SHIFTER_R
+			A			=> A,
+			SHAMT		=> SHAMT,
+			ALUOP		=> ALUOP(1 DOWNTO 0),
+			SHIFTER_R 	=> SHIFTER_R
 		);
 
 	U_4: MUX_32
 		PORT MAP(
-			ALUOP		=> ALUOP(3 DOWNTO 2),
+			ALUOP			=> ALUOP(3 DOWNTO 2),
 			LOGICAL_R		=> LOGICAL_R,
 			ARITHMETIC_R	=> ARITHMETIC_R,
 			COMPARISON_R	=> COMPARISON_R,
 			SHIFTER_R		=> SHIFTER_R,
-			R			=> R
+			R				=> R
 		);
 
 END BEHAV;	

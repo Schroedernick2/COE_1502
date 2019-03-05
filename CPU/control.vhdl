@@ -22,20 +22,20 @@ ENTITY CONTROL IS
 		MEM_WRITE		: OUT STD_LOGIC;
 		MEM_TO_REG		: OUT STD_LOGIC;
 		IR_WRITE		: OUT STD_LOGIC;
-		NOT_ZERO  : OUT STD_LOGIC;
-		LUI     : OUT STD_LOGIC;
-		LH      : OUT STD_LOGIC;
-		STORE_PC : OUT STD_LOGIC;
-		NEGATIVE : OUT STD_LOGIC;
-		FUNCT   : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
-		MULTIPLY : OUT STD_LOGIC;
-		RESET_MULT : OUT STD_LOGIC;
-		MULT_WRITE : OUT STD_LOGIC;
-		ZERO_EXTEND : OUT STD_LOGIC;
-		MULT_DONE : IN STD_LOGIC;
-		WRITE_HI : OUT STD_LOGIC;
-		WRITE_LO : OUT STD_LOGIC;
-	  CLOCK			: IN STD_LOGIC;
+		NOT_ZERO  		: OUT STD_LOGIC;
+		LUI     		: OUT STD_LOGIC;
+		LH      		: OUT STD_LOGIC;
+		STORE_PC 		: OUT STD_LOGIC;
+		NEGATIVE 		: OUT STD_LOGIC;
+		FUNCT   		: IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+		MULTIPLY 		: OUT STD_LOGIC;
+		RESET_MULT 		: OUT STD_LOGIC;
+		MULT_WRITE 		: OUT STD_LOGIC;
+		ZERO_EXTEND 	: OUT STD_LOGIC;
+		MULT_DONE 		: IN STD_LOGIC;
+		WRITE_HI 		: OUT STD_LOGIC;
+		WRITE_LO 		: OUT STD_LOGIC;
+	  	CLOCK			: IN STD_LOGIC;
 		RESET			: IN STD_LOGIC
 	);
 END CONTROL;
@@ -124,17 +124,17 @@ BEGIN
 	BEGIN
 		CASE STATE IS
 			WHEN S0 =>	
-			  WRITE_HI <= '0';
-			  WRITE_LO <= '0';
-			  MULT_WRITE <= '0';			
-			  STORE_PC <= '0';
-			  LH <= '0';
-			  PC_SOURCE <= "00";
+			  	WRITE_HI 		<= '0';
+			 	WRITE_LO 		<= '0';
+			  	MULT_WRITE 		<= '0';			
+			  	STORE_PC 		<= '0';
+			  	LH 				<= '0';
+			  	PC_SOURCE		<= "00";
 				PC_WRITE_COND	<= '0';
 				PC_WRITE		<= '1';
 				ALU_OP			<= "0001";
 				ALU_SRC_A		<= '0';
-			  ALU_SRC_B <= "01";											
+			  	ALU_SRC_B 		<= "01";											
 				I_OR_D			<= '0';
 				REG_WRITE		<= '0';
 				MEM_READ		<= '1';
@@ -162,7 +162,7 @@ BEGIN
 	    
 				REG_DST			<= '0';
 				REG_WRITE		<= '0';
-				STORE_PC <= '0';
+				STORE_PC 		<= '0';
 				PC_SOURCE		<= "00";
 				PC_WRITE_COND	<= '0';
 				PC_WRITE		<= '0';
@@ -172,9 +172,9 @@ BEGIN
 				MEM_TO_REG		<= '0';
 				IR_WRITE		<= '0';
 				
-				ALU_OP <= "0001";
-			  ALU_SRC_A <= '0';
-				ALU_SRC_B <= "11";
+				ALU_OP 			<= "0001";
+			  	ALU_SRC_A 		<= '0';
+				ALU_SRC_B 		<= "11";
 			
 			WHEN S2 =>
 				ALU_OP 			<= "0001";
@@ -209,15 +209,15 @@ BEGIN
 				IR_WRITE		<= '0';
 			
 			WHEN S6 =>			  
-			  IF(UNSIGNED(OP_CODE)=0 AND UNSIGNED(FUNCT)=25)THEN
-			    RESET_MULT <= '0';
-					MULTIPLY <= '1';
+			  	IF(UNSIGNED(OP_CODE)=0 AND UNSIGNED(FUNCT)=25)THEN
+			    	RESET_MULT 	<= '0';
+					MULTIPLY 	<= '1';
 				ELSE
-					MULTIPLY <= '0';
+					MULTIPLY 	<= '0';
 				END IF;			  
 				
-				LUI <= '0';
-				ALU_SRC_A		<= '1';
+				LUI 		<= '0';
+				ALU_SRC_A	<= '1';
 
 				IF(I_TYPE = TRUE) THEN
 					ALU_SRC_B	<= "10";
@@ -244,30 +244,30 @@ BEGIN
 					END IF;
 					
 				ELSIF(UNSIGNED(OP_CODE) = 0) THEN
-					ALU_OP 			<= "0000"; 	--R_TYPE SEE FUNCT IN ALU_CTRL
-					ALU_SRC_B		<= "00";
+					ALU_OP 		<= "0000"; 	--R_TYPE SEE FUNCT IN ALU_CTRL
+					ALU_SRC_B	<= "00";
 				ELSIF(UNSIGNED(OP_CODE) = 28) THEN
-				  ALU_OP <= "1111";     --SIGNAL FOR CLO OR CLZ
-				  ALU_SRC_B <= "00";
+				  	ALU_OP 		<= "1111";     --SIGNAL FOR CLO OR CLZ
+				  	ALU_SRC_B 	<= "00";
 				END IF;
 
 			WHEN S7 =>
 				IF(I_TYPE = TRUE) THEN
-					REG_DST 	<= '1';
+					REG_DST <= '1';
 				ELSE
-					REG_DST		<= '0';
+					REG_DST	<= '0';
 				END IF;
 
-				REG_WRITE		<= '1';
-				MEM_TO_REG		<= '0';
+				REG_WRITE	<= '1';
+				MEM_TO_REG	<= '0';
 
 			WHEN S8 =>
-				ALU_OP 			<= "1001";
-				ALU_SRC_A		<= '1';
-				ALU_SRC_B		<= "00";
+				ALU_OP 		<= "1001";
+				ALU_SRC_A	<= '1';
+				ALU_SRC_B	<= "00";
 				
-			  PC_WRITE_COND <= '1';
-				PC_SOURCE <= "01";
+			  	PC_WRITE_COND 	<= '1';
+				PC_SOURCE 		<= "01";
 				
 				IF(UNSIGNED(OP_CODE)=5) THEN
 				  NOT_ZERO <= '1';
@@ -288,19 +288,20 @@ BEGIN
 			WHEN S9 =>
 				
 				IF(UNSIGNED(OP_CODE)=2)THEN
-				  PC_SOURCE <= "10";
-				  PC_WRITE <= '1';
+				  	PC_SOURCE <= "10";
+				  	PC_WRITE <= '1';
 				ELSIF(UNSIGNED(OP_CODE)=0 AND UNSIGNED(FUNCT)=8) THEN
-				  PC_SOURCE <= "11";
-				  PC_WRITE <= '1';
+				  	PC_SOURCE <= "11";
+				  	PC_WRITE <= '1';
 				END IF;
 				
 			WHEN SM =>
-			  MULTIPLY <= '0';
+			  	MULTIPLY <= '0';
 				RESET_MULT <= '0';
 			WHEN SM_WB =>
-			  MULT_WRITE <= '1';
+			  	MULT_WRITE <= '1';
 			WHEN OTHERS =>
+				--SHOULD NEVER HAPPEN
 		END CASE;
 	END PROCESS;
 
